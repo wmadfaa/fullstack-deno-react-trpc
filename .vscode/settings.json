@@ -9,6 +9,4 @@
     "**/routeTree.gen.ts": true
   },
   "deno.enable": true
-  // "deno.unstable": ["sloppy-imports"],
-  // "deno.lint": false
 }
