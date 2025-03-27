@@ -1,0 +1,55 @@
+name: Deploy
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: ${{ github.event_name == 'push' && 'production' || '' }}
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Install Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install step
+        run: "deno install --allow-scripts=npm:@swc/core@1.11.9"
+
+      - name: Build step
+        if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+        run: "deno task frontend:build"
+        env:
+          VITE_BACKEND_URL: ${{ secrets.VITE_BACKEND_URL }}
+
+      - name: Upload Frontend
+        uses: denoland/deployctl@v1
+        with:
+          project: "my-frontend"
+          entrypoint: "jsr:@std/http/file-server"
+          root: "frontend/dist"
+
+      - name: Upload Backend
+        uses: denoland/deployctl@v1
+        with:
+          project: "my-backend"
+          entrypoint: "main.ts"
+          root: "backend"
+        env:
+          SECRIPT_TOKEN: ${{ secrets.SECRIPT_TOKEN }}
