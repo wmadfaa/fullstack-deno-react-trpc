@@ -1,7 +1,8 @@
 {
   "workspace": ["frontend", "backend"],
+  "nodeModulesDir": "auto",
   "tasks": {
-    "frontend:dev": "",
-    "backend:dev": ""
+    "frontend:dev": "deno task --filter @my-project-name/frontend dev",
+    "backend:dev": "deno task --filter @my-project-name/backend dev"
   }
 }

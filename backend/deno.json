@@ -1,0 +1,13 @@
+{
+  "name": "@my-project-name/backend",
+  "tasks": {
+    "dev": "deno run -A --watch main.ts"
+  },
+  "exports": {
+    ".": "./src/app.ts"
+  },
+  "imports": {
+    "@trpc/client": "npm:@trpc/client@^11.0.0",
+    "@trpc/server": "npm:@trpc/server@^11.0.0"
+  }
+}

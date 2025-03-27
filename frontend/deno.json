@@ -1,0 +1,17 @@
+{
+  "name": "@my-project-name/frontend",
+  "tasks": {
+    "dev": "deno run -A npm:vite",
+    "build": "deno run -A npm:vite build"
+  },
+  "exports": {
+    ".": "./src/*"
+  },
+  "imports": {
+    "@/": "./src/"
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  }
+}
