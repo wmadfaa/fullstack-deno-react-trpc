@@ -8,9 +8,11 @@
     ".": "./src/*"
   },
   "imports": {
-    "@/": "./src/"
+    "#/": "./src/",
+    "+/": "./_node_modules/"
   },
   "compilerOptions": {
+    "lib": ["dom"],
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   }
